@@ -1,3 +1,7 @@
 nvim/nvim-pack-lock.json
 tmux/plugins
+fish/completions
+fish/conf.d
+fish/functions
+fish/fish_variables
 **/.DS_Store
