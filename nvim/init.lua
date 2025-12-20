@@ -200,6 +200,9 @@ vim.api.nvim_create_autocmd("FileType", {
 		end
 	end,
 })
+
+-- trailing space guides
+require("mini.trailspace").setup()
 -- }}}
 -- {{{ fzf-lua:                              fuzzy finder
 -- this is very powerful.
