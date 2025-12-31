@@ -1,6 +1,6 @@
 [general]
 import = [
-	"themes/kanagawa_dragon.toml"
+	"themes/zenwritten_light.toml"
 ]
 
 [window]
