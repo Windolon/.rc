@@ -1,19 +1,22 @@
--- a lua-language-server config that is specifically written for
--- configuring neovim.
-
-local capabilities = {
-	textDocument = {
-		foldingRange = {
-			dynamicRegistration = false,
-			lineFoldingOnly = true,
-		},
-	},
-}
-capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
+-- a lua-language-server config that is written specifically for configuring neovim.
+-- taken from https://github.com/neovim/nvim-lspconfig/blob/master/lsp/lua_ls.lua
+-- install: brew install lua-language-server
 
 ---@type vim.lsp.Config
 return {
-	capabilities = capabilities,
+	cmd = { "lua-language-server" },
+	filetypes = { "lua" },
+	root_markers = {
+		".emmyrc.json",
+		".luarc.json",
+		".luarc.jsonc",
+		".luacheckrc",
+		".stylua.toml",
+		"stylua.toml",
+		"selene.toml",
+		"selene.yml",
+		".git",
+	},
 	on_init = function(client)
 		if client.workspace_folders then
 			local path = client.workspace_folders[1].name
@@ -42,35 +45,12 @@ return {
 				checkThirdParty = false,
 				library = {
 					vim.env.VIMRUNTIME,
-					"~/.local/share/nvim/site/pack/core/opt",
-					-- Depending on the usage, you might want to add additional paths
-					-- here.
-					-- '${3rd}/luv/library'
-					-- '${3rd}/busted/library'
+					-- Depending on the usage, you might want to add additional paths here.
+					vim.fn.expand("~/.local/share/nvim/site/pack/core/opt/"),
 				},
-				-- Or pull in all of 'runtimepath'.
-				-- NOTE: this is a lot slower and will cause issues when working on
-				-- your own configuration.
-				-- See https://github.com/neovim/nvim-lspconfig/issues/3189
-				-- library = {
-				--   vim.api.nvim_get_runtime_file('', true),
-				-- }
 			},
 		})
 	end,
-	cmd = { "lua-language-server" },
-	filetypes = { "lua" },
-	root_markers = {
-		".emmyrc.json",
-		".luarc.json",
-		".luarc.jsonc",
-		".luacheckrc",
-		".stylua.toml",
-		"stylua.toml",
-		"selene.toml",
-		"selene.yml",
-		".git",
-	},
 	settings = {
 		Lua = {
 			codeLens = { enable = true },
