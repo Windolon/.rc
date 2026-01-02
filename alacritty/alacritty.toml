@@ -8,7 +8,7 @@ startup_mode = "Fullscreen"
 dynamic_padding = true
 
 [font]
-normal = { family = "IosevkaTerm Nerd Font", style = "Regular" }
+normal = { family = "IosevkaTermSlab Nerd Font", style = "Regular" }
 # brewmaster: 17 | JAAM: 14
 size = 14
 
