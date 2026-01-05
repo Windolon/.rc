@@ -1,97 +1,68 @@
--- marco pierre white does not mind his lamb chops being well done.
--- i dont mind my config having plugins.
---
--- i want things to look good, be easy to configure and to maintain, and
--- be unobtrusive and show up only when i mean them to.
--- each plugin and option has their place here.
+-- unapologetically in justinmk's style.
 
--- {{{ general options, :h 'optionname'
--- sir, the npm pack- NO.
+-- ================================
+-- == General settings / options ==
+-- ================================
+
 vim.g.loaded_node_provider = 0
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_python3_provider = 0
 vim.g.loaded_ruby_provider = 0
 
--- feel good options.
-vim.opt.number = true
-vim.opt.relativenumber = true
-vim.opt.cursorline = true
-vim.opt.scrolloff = 10
-vim.opt.sidescrolloff = 30
-vim.opt.showmode = false -- statusline takes care of this
-vim.opt.breakindent = true
-vim.opt.splitbelow = true
-vim.opt.splitright = true
-vim.opt.confirm = true
-vim.opt.winborder = "rounded"
-vim.lsp.inlay_hint.enable(true)
-vim.opt.updatetime = 250
+vim.g.loaded_netrwPlugin = 0 -- i have mini.files
+vim.g.did_install_default_menus = 1 -- this looks like its mainly designed for the mouse, :h menu.vim
 
--- :h spell
-vim.opt.spelllang = { "en", "de" }
+vim.o.showmode = false
+vim.o.breakindent = true
+vim.o.signcolumn = "yes"
+vim.o.winborder = "rounded"
+vim.o.tabstop = 4
+vim.o.shiftwidth = 0
+vim.o.pumheight = 10
 
--- im just used to this search behaviour, shrug
-vim.opt.ignorecase = true
-vim.opt.smartcase = true -- \Cquery to force case-sensitive search regardless
-
--- needed for a bunch of plugins, also gives padding to the left which looks nice
-vim.opt.signcolumn = "yes"
-
--- persistent undos
-vim.opt.undofile = true
-
--- sync os' and nvim's clipboard
--- schedule this to reduce startup time impact
+vim.o.number = true
+vim.o.relativenumber = true
+vim.o.scrolloff = 10
+vim.o.sidescrolloff = 30
+vim.o.splitbelow = true
+vim.o.splitright = true
+vim.o.confirm = true
+vim.o.mouse = "a"
 vim.schedule(function()
-	vim.o.clipboard = "unnamedplus"
+    vim.o.clipboard = "unnamedplus"
 end)
+vim.o.undofile = true
+vim.o.ignorecase = true
+vim.o.smartcase = true
+vim.o.updatetime = 250
+vim.opt.spelllang = { "en", "de" } -- :h spell
+vim.o.expandtab = true
 
--- guess-indent probably takes care of this but its still good to have some defaults (wtf is with 8?)
-vim.opt.tabstop = 4
-vim.opt.shiftwidth = 0
-vim.opt.expandtab = true
+-- ===================
+-- == Basic keymaps ==
+-- ===================
 
-vim.opt.pumheight = 10
+-- see default binds with :h index
 
-vim.g.netrw_banner = 0
-
--- recommended by auto-session
-vim.opt.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
-
-vim.diagnostic.config({
-	signs = {
-		text = {
-			-- yes.
-			[vim.diagnostic.severity.ERROR] = "■ ",
-			[vim.diagnostic.severity.WARN] = "■ ",
-			[vim.diagnostic.severity.INFO] = "■ ",
-			[vim.diagnostic.severity.HINT] = "■ ",
-		},
-	},
-	-- underline is true by default
-	virtual_text = true,
-})
--- }}}
-
--- {{{ native keymaps
 vim.g.mapleader = " "
-vim.g.maplocalleader = "ü"
+vim.g.maplocalleader = " "
 
--- :h index to see default mappings
+vim.keymap.set("n", "ö", "[", { remap = true })
+vim.keymap.set("n", "ä", "]", { remap = true })
 
-vim.keymap.set("n", "<leader>ni", "<Cmd>e $MYVIMRC<CR>", { desc = "Edit init.lua" })
 vim.keymap.set("n", "<leader>nr", "<Cmd>restart<CR>", { desc = ":restart" })
-vim.keymap.set("n", "<leader>nu", vim.pack.update, { desc = "Update all plugins" })
 
 vim.keymap.set("n", "<Esc>", "<Cmd>noh<CR>", { desc = "Turn off highlighting until the next search" })
-
-vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { desc = "Return to Nt mode" })
 
 -- <C-Left> and <C-Right> are aliases for B and W originally (i dont use them)
 vim.keymap.set("n", "<C-Up>", "<Cmd>resize +2<CR>", { desc = "Increase window height" })
 vim.keymap.set("n", "<C-Down>", "<Cmd>resize -2<CR>", { desc = "Decrease window height" })
 vim.keymap.set("n", "<C-Left>", "<Cmd>vertical resize -2<CR>", { desc = "Decrease window width" })
 vim.keymap.set("n", "<C-Right>", "<Cmd>vertical resize +2<CR>", { desc = "Increase window width" })
+
+-- n:<C-c> by default maps to interrupting current command (<Esc> behaviour)
+-- i:<C-c> by default maps to quitting insert mode w/o checking for abbr. (<Esc> behaviour)
+vim.keymap.set({ "n", "i" }, "<C-c>", vim.snippet.stop, { desc = "Stop current snippet" })
 
 -- default keymaps with improved behaviour
 vim.keymap.set("n", "n", "nzzzv", { desc = "Next search result (centered)" })
@@ -101,317 +72,256 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Half page up (centered)" })
 vim.keymap.set("n", "J", "mzJ`z", { desc = "Join lines and keep cursor position" })
 vim.keymap.set("v", "<", "<gv", { desc = "Indent left and reselect" })
 vim.keymap.set("v", ">", ">gv", { desc = "Indent right and reselect" })
--- }}}
+-- taken from lazyvim
+vim.keymap.set({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })
+vim.keymap.set({ "n", "x" }, "<Down>", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })
+vim.keymap.set({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true, silent = true })
+vim.keymap.set({ "n", "x" }, "<Up>", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true, silent = true })
 
--- {{{ essential plugins
--- {{{ kanagawa.nvim:                        colour theme
 vim.pack.add({
-	{ src = "https://github.com/rebelot/kanagawa.nvim" },
-})
-require("kanagawa").setup({
-	-- Remove the background of LineNr, {Sign,Fold}Column and friends
-	colors = {
-		theme = {
-			all = {
-				ui = {
-					bg_gutter = "none",
-				},
-			},
-		},
-	},
-	-- More uniform colors for the popup menu
-	overrides = function(colors)
-		local theme = colors.theme
-		return {
-			Pmenu = { fg = theme.ui.fg, bg = theme.ui.float.bg }, -- add `blend = vim.o.pumblend` to enable transparency
-			PmenuSel = { fg = "NONE", bg = theme.ui.bg_p2 },
-			PmenuSbar = { bg = theme.ui.bg_m1 },
-			PmenuThumb = { bg = theme.ui.special },
-			PmenuKind = { bg = theme.ui.float.bg },
-			PmenuKindSel = { fg = "NONE", bg = theme.ui.bg_p2 },
-			PmenuExtra = { bg = theme.ui.float.bg },
-			PmenuExtraSel = { fg = "NONE", bg = theme.ui.bg_p2 },
-			BlinkCmpMenuBorder = { fg = theme.ui.float.fg_border, bg = "" }, -- why isnt this linked to Pmenu hlgroups
-		}
-	end,
-})
-vim.cmd.colorscheme("kanagawa-dragon")
--- }}}
--- {{{ heirline.nvim:                        statusline framework
-require("plugins.heirline")
--- }}}
--- {{{ mini.nvim:                            library of improvement plugins
--- woah, are you just downloading a bunch of shit 80% of which you dont use??
--- "i dont mind my lamb chops being well done."
-vim.pack.add({
-	{ src = "https://github.com/nvim-mini/mini.nvim" },
+    "https://github.com/zenbones-theme/zenbones.nvim",
+    "https://github.com/rktjmp/lush.nvim",
+    "https://github.com/rebelot/heirline.nvim",
+
+    "https://github.com/nvim-mini/mini.nvim",
+    "https://github.com/ibhagwan/fzf-lua",
+    "https://github.com/tpope/vim-fugitive",
+    "https://github.com/lewis6991/gitsigns.nvim",
+    "https://github.com/NMAC427/guess-indent.nvim",
+    "https://github.com/rmagatti/auto-session",
+
+    "https://github.com/nvim-treesitter/nvim-treesitter",
+    "https://github.com/stevearc/conform.nvim",
 })
 
--- icon provider
-require("mini.icons").setup()
-MiniIcons.mock_nvim_web_devicons()
+local augroup = vim.api.nvim_create_augroup("my.config", {})
 
--- file explorer
--- this is awesome. i cant live without this.
-require("mini.files").setup()
-vim.keymap.set("n", "<leader>e", MiniFiles.open, { desc = "Open mini.files explorer" })
+local function config_mini()
+    require("mini.icons").setup()
+    MiniIcons.mock_nvim_web_devicons()
 
--- extend and create [a]round/[i]nside textobjects
--- have been using this plugin's features without even realising.
-require("mini.ai").setup()
+    require("mini.files").setup()
+    vim.keymap.set("n", "<leader>e", MiniFiles.open, { desc = "Open mini.files explorer" })
 
--- surround actions
--- same with mini.ai: been using the features for granted.
-require("mini.surround").setup()
+    require("mini.surround").setup()
 
--- snippets engine
--- also provides extensibility, such as custom snippets. need that.
-local gen_loader = require("mini.snippets").gen_loader
-require("mini.snippets").setup({
-	snippets = {
-		-- Load custom file with global snippets first (adjust for Windows)
-		gen_loader.from_file("~/.config/nvim/snippets/global.json"),
+    require("mini.move").setup()
+end
 
-		-- Load snippets based on current language by reading files from
-		-- "snippets/" subdirectories from 'runtimepath' directories.
-		gen_loader.from_lang(),
-	},
-})
+local function config_theme()
+    vim.o.termguicolors = true
+    vim.o.background = "light"
 
--- notifications
--- turns out its good to know what is happening around you.
-require("mini.notify").setup()
+    vim.g.zenwritten = {
+        lightness = "dim",
+    }
 
--- move selections around
-require("mini.move").setup()
+    -- NOTE: zenbones.nvim is built on lush.nvim, so we need to do this "the lush way"
+    local function customise_zenwritten()
+        local lush = require("lush")
+        local base = require("zenwritten")
 
--- highlights word under cursor
-require("mini.cursorword").setup()
+        local specs = lush.parse(function()
+            return {
+                -- lua_ls does not understand the "lush syntax", so i disable the warnings here
+                ---@diagnostic disable-next-line: undefined-global
+                StatusLine({ base.StatusLine, bg = lush.hsl("#F6F6F6") }),
+            }
+        end)
 
--- indent guide
-require("mini.indentscope").setup({
-	symbol = "│",
-})
-vim.api.nvim_create_autocmd("FileType", {
-	callback = function(args)
-		local ft = vim.bo[args.buf].filetype
-		if ft == "help" then
-			vim.b[args.buf].miniindentscope_disable = true
-		end
-	end,
-})
+        lush.apply(lush.compile(specs))
+    end
 
--- trailing space guides
-require("mini.trailspace").setup()
--- }}}
--- {{{ fzf-lua:                              fuzzy finder
--- this is very powerful.
-vim.pack.add({
-	{ src = "https://github.com/ibhagwan/fzf-lua" },
-})
-require("fzf-lua").setup()
-vim.keymap.set("n", "<leader>ff", '<Cmd>lua require("fzf-lua").files()<CR>', { desc = "Fuzzy find files" })
-vim.keymap.set("n", "<leader>fg", '<Cmd>lua require("fzf-lua").live_grep()<CR>', { desc = "Live grep" })
-vim.keymap.set("n", "<leader>fb", '<Cmd>lua require("fzf-lua").buffers()<CR>', { desc = "Fuzzy find open buffers" })
-vim.keymap.set("n", "<leader>fh", '<Cmd>lua require("fzf-lua").help_tags()<CR>', { desc = "Fuzzy find help tags" })
--- }}}
--- {{{ guess-indent.nvim:                    indentation styles inferred from individual buffers
-vim.pack.add({
-	{ src = "https://github.com/NMAC427/guess-indent.nvim" },
-})
-require("guess-indent").setup({})
--- }}}
--- {{{ nvim-ufo <- promise-async:            better folding behaviours
--- i am a folder. you heard it here first. i need nvim-ufo.
--- also, nvim-ufo makes folds prettier and more... minimalistic.
-vim.pack.add({
-	{ src = "https://github.com/kevinhwang91/promise-async" },
-	{ src = "https://github.com/kevinhwang91/nvim-ufo" },
-})
-vim.o.foldcolumn = "1"
-vim.o.foldlevel = 99
-vim.o.foldlevelstart = 99
-vim.o.foldenable = true
-vim.o.fillchars = "eob: ,fold: ,foldopen:,foldsep: ,foldinner: ,foldclose:"
-vim.keymap.set("n", "zR", require("ufo").openAllFolds, { desc = "Open all folds" })
-vim.keymap.set("n", "zM", require("ufo").closeAllFolds, { desc = "Close all folds" })
-require("ufo").setup()
--- }}}
--- {{{ gitsigns.nvim:                        git integration
-vim.pack.add({
-	{ src = "https://github.com/lewis6991/gitsigns.nvim" },
-})
-require("gitsigns").setup({
-	on_attach = function(bufnr)
-		local gitsigns = require("gitsigns")
+    vim.api.nvim_create_autocmd("ColorScheme", {
+        group = augroup,
+        desc = "Customises the zenwritten colourscheme",
+        pattern = "zenwritten",
+        callback = customise_zenwritten,
+    })
 
-		local function map(mode, l, r, opts)
-			opts = opts or {}
-			opts.buffer = bufnr
-			vim.keymap.set(mode, l, r, opts)
-		end
+    vim.cmd("colorscheme zenwritten")
+end
 
-		-- Navigation
-		map("n", "]c", function()
-			if vim.wo.diff then
-				vim.cmd.normal({ "]c", bang = true })
-			else
-				gitsigns.nav_hunk("next")
-			end
-		end, { desc = "Next hunk" })
+-- Use LSP folding if the client supports it, otherwise use treesitter folding
+-- Taken from :h vim.lsp.foldexpr()
+local function config_folding()
+    vim.o.foldmethod = "expr"
+    vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+    vim.o.foldlevel = 99 -- dont fold anything on buffer open
+    vim.api.nvim_create_autocmd("LspAttach", {
+        group = augroup,
+        desc = "Configures LSP folding if the client supports it",
+        callback = function(args)
+            local client = vim.lsp.get_client_by_id(args.data.client_id)
+            -- this is an LspAttach autocmd, `client` is guaranteed to exist
+            ---@diagnostic disable-next-line: need-check-nil
+            if client:supports_method("textDocument/foldingRange") then
+                local win = vim.api.nvim_get_current_win()
+                vim.wo[win][0].foldexpr = "v:lua.vim.lsp.foldexpr()"
+            end
+        end,
+    })
+end
 
-		map("n", "[c", function()
-			if vim.wo.diff then
-				vim.cmd.normal({ "[c", bang = true })
-			else
-				gitsigns.nav_hunk("prev")
-			end
-		end, { desc = "Previous hunk" })
+local function config_git()
+    require("gitsigns").setup({
+        on_attach = function(bufnr)
+            local gitsigns = require("gitsigns")
 
-		-- Actions
-		map("n", "<leader>gs", gitsigns.stage_hunk, { desc = "Stage hunk" })
-		map("n", "<leader>gr", gitsigns.reset_hunk, { desc = "Reset hunk" })
+            local function map(mode, l, r, opts)
+                opts = opts or {}
+                opts.buffer = bufnr
+                vim.keymap.set(mode, l, r, opts)
+            end
 
-		map("v", "<leader>gs", function()
-			gitsigns.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
-		end, { desc = "Stage hunk" })
+            -- Navigation
+            map("n", "]h", function()
+                if vim.wo.diff then
+                    vim.cmd.normal({ "]h", bang = true })
+                else
+                    ---@diagnostic disable-next-line: param-type-mismatch
+                    gitsigns.nav_hunk("next")
+                end
+            end)
 
-		map("v", "<leader>gr", function()
-			gitsigns.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
-		end, { desc = "Reset hunk" })
+            map("n", "[h", function()
+                if vim.wo.diff then
+                    vim.cmd.normal({ "[h", bang = true })
+                else
+                    ---@diagnostic disable-next-line: param-type-mismatch
+                    gitsigns.nav_hunk("prev")
+                end
+            end)
 
-		map("n", "<leader>gS", gitsigns.stage_buffer, { desc = "Stage buffer" })
-		map("n", "<leader>gR", gitsigns.reset_buffer, { desc = "Reset buffer" })
-	end,
-})
--- }}}
--- {{{ auto-session:                         automated session manager
-vim.pack.add({
-	{ src = "https://github.com/rmagatti/auto-session" },
-})
+            -- Actions
+            map("n", "<leader>hs", gitsigns.stage_hunk)
+            map("n", "<leader>hr", gitsigns.reset_hunk)
+
+            map("v", "<leader>hs", function()
+                gitsigns.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
+            end)
+
+            map("v", "<leader>hr", function()
+                gitsigns.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
+            end)
+
+            map("n", "<leader>hS", gitsigns.stage_buffer)
+            map("n", "<leader>hR", gitsigns.reset_buffer)
+            map("n", "<leader>hp", gitsigns.preview_hunk)
+            map("n", "<leader>hi", gitsigns.preview_hunk_inline)
+
+            map("n", "<leader>hb", function()
+                gitsigns.blame_line({ full = true })
+            end)
+
+            map("n", "<leader>hd", gitsigns.diffthis)
+
+            map("n", "<leader>hD", function()
+                ---@diagnostic disable-next-line: param-type-mismatch
+                gitsigns.diffthis("~")
+            end)
+
+            map("n", "<leader>hQ", function()
+                ---@diagnostic disable-next-line: param-type-mismatch
+                gitsigns.setqflist("all")
+            end)
+            map("n", "<leader>hq", gitsigns.setqflist)
+
+            -- Toggles
+            map("n", "<leader>tb", gitsigns.toggle_current_line_blame)
+            map("n", "<leader>tw", gitsigns.toggle_word_diff)
+
+            -- Text object
+            map({ "o", "x" }, "ih", gitsigns.select_hunk)
+        end,
+    })
+end
+
+local function config_fzf()
+    require("fzf-lua").setup({
+        fzf_colors = true,
+    })
+    vim.keymap.set("n", "<leader>fb", FzfLua.buffers, { desc = "Fuzzy find open buffers" })
+    vim.keymap.set("n", "<leader>ff", FzfLua.files, { desc = "Fuzzy find files" })
+    vim.keymap.set("n", "<leader>fg", FzfLua.live_grep, { desc = "Live grep current project" })
+    vim.keymap.set("n", "<leader>fs", FzfLua.lsp_document_symbols, { desc = "Fuzzy find document symbols" })
+    vim.keymap.set("n", "<leader>fh", FzfLua.help_tags, { desc = "Fuzzy find Neovim help tags" })
+end
+
+local function config_treesitter()
+    -- i dont mind my lamb chops well done.
+    require("nvim-treesitter").install({ "all" })
+    vim.api.nvim_create_autocmd("FileType", {
+        group = augroup,
+        desc = "Starts treesitter if the filetype is supported",
+        callback = function()
+            -- there is still a chance that this will error so we wrap it in a pcall
+            pcall(vim.treesitter.start)
+        end,
+    })
+end
+
+local function config_lsp()
+    vim.api.nvim_create_autocmd("LspAttach", {
+        group = augroup,
+        desc = "Enables LSP completion",
+        callback = function(args)
+            vim.lsp.completion.enable(true, args.data.client_id, args.buf)
+        end,
+    })
+    vim.lsp.inlay_hint.enable(true)
+    vim.lsp.enable({
+        "lua_ls",
+        "rust_analyzer",
+    })
+end
+
+local function config_format_on_write()
+    require("conform").setup({
+        formatters_by_ft = {
+            lua = { "stylua" },
+            -- :checkhealth will complain if we are not in a venv, but its fine
+            python = { "black" },
+        },
+        format_on_save = {
+            lsp_format = "fallback",
+            timeout_ms = 500,
+        },
+    })
+end
+
+local function config_diagnostics()
+    vim.diagnostic.config({
+        signs = {
+            text = {
+                [vim.diagnostic.severity.ERROR] = "󰅚 ",
+                [vim.diagnostic.severity.WARN] = "󰀪 ",
+                [vim.diagnostic.severity.INFO] = "󰋽 ",
+                [vim.diagnostic.severity.HINT] = "󰌶 ",
+            },
+        },
+        -- underline is true by default
+    })
+end
+
+-- do this first
+config_mini()
+
+config_theme()
+require("my.statusline")
+
+config_fzf()
+config_git()
+
+vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 require("auto-session").setup({
-	suppressed_dirs = { "~/", "~/Downloads/", "/" },
+    suppressed_dirs = { "~/", "~/Downloads/", "/" },
 })
--- }}}
--- {{{ blink.cmp:                            autocompletion
-vim.pack.add({
-	{
-		src = "https://github.com/saghen/blink.cmp",
-		version = "v1.8.0", -- pin to a release to download prebuilt bins
-	},
-})
-require("blink.cmp").setup({
-	keymap = {
-		preset = "default",
-		-- remaps C-space to C-d because tmux's prefix is C-space
-		["<C-space>"] = false,
-		["<C-d>"] = { "show", "show_documentation", "hide_documentation" },
-		-- no more "i am using the arrow keys to navigate in insert mode can you please stop interrupting"
-		["<Up>"] = false,
-		["<Down>"] = false,
-	},
-	appearance = { nerd_font_variant = "normal" },
-	completion = { documentation = { auto_show = false } },
-	snippets = { preset = "mini_snippets" },
-	sources = {
-		default = { "lsp", "path", "snippets", "buffer", "omni" },
-	},
-	fuzzy = { implementation = "prefer_rust_with_warning" },
-})
--- }}}
--- {{{ tabout.nvim:                          tabout from pairs
-vim.pack.add({
-	{ src = "https://github.com/abecodes/tabout.nvim" },
-})
-require("tabout").setup({
-	tabkey = "<Tab>", -- key to trigger tabout, set to an empty string to disable
-	backwards_tabkey = "<S-Tab>", -- key to trigger backwards tabout, set to an empty string to disable
-	act_as_tab = true, -- shift content if tab out is not possible
-	act_as_shift_tab = false, -- reverse shift content if tab out is not possible (if your keyboard/terminal supports <S-Tab>)
-	default_tab = "<C-t>", -- shift default action (only at the beginning of a line, otherwise <TAB> is used)
-	default_shift_tab = "<C-d>", -- reverse shift default action,
-	enable_backwards = true, -- well ...
-	completion = true, -- if the tabkey is used in a completion pum
-	tabouts = {
-		{ open = "'", close = "'" },
-		{ open = '"', close = '"' },
-		{ open = "`", close = "`" },
-		{ open = "(", close = ")" },
-		{ open = "[", close = "]" },
-		{ open = "{", close = "}" },
-		{ open = "<", close = ">" },
-		{ open = ",", close = "," },
-		{ open = ";", close = ";" },
-		{ open = "=", close = "=" },
-	},
-	ignore_beginning = true, --[[ if the cursor is at the beginning of a filled element it will rather tab out than shift the content ]]
-	exclude = {}, -- tabout will ignore these filetypes
-})
--- }}}
--- }}}
 
--- {{{ treesitter
--- ok yes, you can download and setup treesitters natively, but i've tried it and
--- its a huge pain in the ass.
-vim.pack.add({
-	{ src = "https://github.com/nvim-treesitter/nvim-treesitter" },
-})
--- i dont mind my lamb chops well done.
-require("nvim-treesitter").install({ "all" })
--- automatically start treesitter if the filetype is supported
-vim.api.nvim_create_autocmd("FileType", {
-	callback = function()
-		-- there is still a chance that this will error so we wrap it in a pcall
-		pcall(vim.treesitter.start)
-	end,
-})
--- }}}
+require("guess-indent").setup({})
 
--- {{{ mason.nvim & mason-tool-installer.nvim
-vim.pack.add({
-	-- package manager for LSPs, DAPs, linters and formatters
-	-- mason might truly be necessary, because its just painless.
-	-- i tried setting up lua_ls manually but its a complete mess, see below.
-	{ src = "https://github.com/mason-org/mason.nvim" },
-	-- automatic installer for mason.nvim, for even better portability.
-	-- why isnt this default mason behaviour?
-	{ src = "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim" },
-})
-require("mason").setup()
-require("mason-tool-installer").setup({
-	ensure_installed = {
-		-- exceptions:
-		--   pyright and black: per-venv basis
-		--   rust-analyzer: via rustup
-		"lua-language-server", -- only the mason build works, WTF?
-		"stylua",
-	},
-})
--- }}}
-
--- {{{ LSP
-vim.lsp.enable({
-	"lua_ls",
-	"rust_analyzer",
-})
--- }}}
-
--- {{{ format on write (conform.nvim)
--- trust me, i wouldve implemented this behaviour natively if it didnt suck.
--- on the other hand, conform just works with minimal config lines.
-vim.pack.add({
-	{ src = "https://github.com/stevearc/conform.nvim" },
-})
-require("conform").setup({
-	formatters_by_ft = {
-		lua = { "stylua" },
-		python = { "black" },
-	},
-	format_on_save = {
-		lsp_format = "fallback",
-		timeout_ms = 500,
-	},
-})
--- }}}
-
--- vim: foldmethod=marker foldlevel=0
+config_treesitter()
+config_lsp()
+config_folding()
+config_format_on_write()
+config_diagnostics()
