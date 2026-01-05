@@ -1,6 +1,6 @@
 [general]
 import = [
-	"themes/zenwritten_light.toml"
+	"themes/zenwritten_light_dim.toml"
 ]
 
 [window]
