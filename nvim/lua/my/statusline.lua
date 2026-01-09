@@ -123,9 +123,15 @@ local FileFlags = {
     },
     {
         condition = function()
-            return not vim.bo.modifiable or vim.bo.readonly
+            return not vim.bo.modifiable
         end,
         provider = " [-]",
+    },
+    {
+        condition = function()
+            return vim.bo.readonly
+        end,
+        provider = " [RO]",
     },
 }
 
