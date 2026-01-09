@@ -290,6 +290,7 @@ local Help = {
     end,
 
     { condition = conditions.is_active, ViMode }, Space, HelpIcon, HelpFileName, FileFlags, Align,
+    Ruler, Space,
 }
 
 local StatusLines = {
