@@ -77,7 +77,7 @@ local ViMode = {
         "ModeChanged",
         pattern = "*:*",
         callback = function()
-            vim.defer_fn(vim.cmd.redrawstatus, 1000)
+            vim.defer_fn(vim.cmd.redrawstatus, 16)
         end,
     },
 }
