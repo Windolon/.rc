@@ -87,6 +87,8 @@ vim.pack.add({
     "https://github.com/ibhagwan/fzf-lua",
     "https://github.com/tpope/vim-fugitive",
     "https://github.com/lewis6991/gitsigns.nvim",
+    -- NOTE: cd to plugin dir and run `cargo build --release` after updating/installing
+    "https://github.com/saghen/blink.cmp",
     "https://github.com/NMAC427/guess-indent.nvim",
     "https://github.com/rmagatti/auto-session",
 
@@ -262,17 +264,21 @@ local function config_treesitter()
 end
 
 local function config_lsp()
-    vim.api.nvim_create_autocmd("LspAttach", {
-        group = augroup,
-        desc = "Enables LSP completion",
-        callback = function(args)
-            vim.lsp.completion.enable(true, args.data.client_id, args.buf)
-        end,
-    })
     vim.lsp.inlay_hint.enable(true)
     vim.lsp.enable({
         "lua_ls",
         "rust_analyzer",
+    })
+end
+
+local function config_blink()
+    require("blink.cmp").setup({
+        appearance = {
+            nerd_font_variant = "normal",
+        },
+        completion = {
+            accept = { auto_brackets = { enabled = false } },
+        },
     })
 end
 
@@ -321,5 +327,6 @@ require("guess-indent").setup({})
 config_treesitter()
 config_lsp()
 config_folding()
+config_blink()
 config_format_on_write()
 config_diagnostics()
