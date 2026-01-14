@@ -19,6 +19,8 @@ vim.o.winborder = "rounded"
 vim.o.tabstop = 4
 vim.o.shiftwidth = 0
 vim.o.pumheight = 10
+vim.o.cursorline = true
+vim.o.cursorlineopt = "number"
 
 vim.o.number = true
 vim.o.relativenumber = true
