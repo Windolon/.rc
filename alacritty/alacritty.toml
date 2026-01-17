@@ -1,6 +1,6 @@
 [general]
 import = [
-	"themes/zenwritten_light_dim.toml"
+	"themes/Zenbones Light.toml"
 ]
 
 [window]
@@ -8,11 +8,9 @@ startup_mode = "Fullscreen"
 dynamic_padding = true
 
 [font]
-normal = { family = "IosevkaTermSlab Nerd Font", style = "Regular" }
+normal = { family = "IosevkaTerm Nerd Font", style = "Regular" }
 # brewmaster: 17 | JAAM: 14
 size = 14
 
 [mouse]
 hide_when_typing = true
-
-# vim: foldmethod=marker foldlevel=0
