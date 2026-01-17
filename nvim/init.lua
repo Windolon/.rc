@@ -103,8 +103,6 @@ local function config_mini()
     require("mini.files").setup()
     vim.keymap.set("n", "<leader>e", MiniFiles.open, { desc = "Open mini.files explorer" })
 
-    require("mini.surround").setup()
-
     require("mini.move").setup()
 end
 
