@@ -91,6 +91,7 @@ vim.pack.add({
     "https://github.com/rmagatti/auto-session",
 
     "https://github.com/nvim-treesitter/nvim-treesitter",
+    "https://github.com/neovim/nvim-lspconfig",
     "https://github.com/stevearc/conform.nvim",
 })
 
@@ -227,8 +228,22 @@ end
 
 local function config_lsp()
     vim.lsp.inlay_hint.enable(true)
+
+    vim.lsp.config("rust_analyzer", {
+        settings = {
+            ["rust-analyzer"] = {
+                inlayHints = {
+                    -- i agree with you maria
+                    chainingHints = { enable = false },
+                },
+            },
+        },
+    })
+
     vim.lsp.enable({
-        "lua_ls",
+        -- cargo install emmylua_ls
+        "emmylua_ls",
+        -- rustup component add rust-analyzer
         "rust_analyzer",
     })
 end
