@@ -81,7 +81,10 @@ vim.keymap.set({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", ex
 vim.keymap.set({ "n", "x" }, "<Up>", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true, silent = true })
 
 vim.pack.add({
-    "https://github.com/nvim-mini/mini.nvim",
+    "https://github.com/nvim-mini/mini.icons",
+    "https://github.com/nvim-mini/mini.files",
+    "https://github.com/nvim-mini/mini.move",
+
     "https://github.com/ibhagwan/fzf-lua",
     "https://github.com/tpope/vim-fugitive",
     "https://github.com/lewis6991/gitsigns.nvim",
