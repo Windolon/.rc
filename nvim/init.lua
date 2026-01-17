@@ -12,7 +12,6 @@ vim.g.loaded_ruby_provider = 0
 vim.g.loaded_netrwPlugin = 0 -- i have mini.files
 vim.g.did_install_default_menus = 1 -- this looks like its mainly designed for the mouse, :h menu.vim
 
-vim.o.showmode = false
 vim.o.breakindent = true
 vim.o.signcolumn = "yes"
 vim.o.winborder = "rounded"
@@ -21,6 +20,7 @@ vim.o.shiftwidth = 0
 vim.o.pumheight = 10
 vim.o.cursorline = true
 vim.o.cursorlineopt = "number"
+vim.o.background = "light"
 
 vim.o.number = true
 vim.o.relativenumber = true
@@ -81,10 +81,6 @@ vim.keymap.set({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", ex
 vim.keymap.set({ "n", "x" }, "<Up>", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true, silent = true })
 
 vim.pack.add({
-    "https://github.com/zenbones-theme/zenbones.nvim",
-    "https://github.com/rktjmp/lush.nvim",
-    "https://github.com/rebelot/heirline.nvim",
-
     "https://github.com/nvim-mini/mini.nvim",
     "https://github.com/ibhagwan/fzf-lua",
     "https://github.com/tpope/vim-fugitive",
@@ -110,40 +106,6 @@ local function config_mini()
     require("mini.surround").setup()
 
     require("mini.move").setup()
-end
-
-local function config_theme()
-    vim.o.termguicolors = true
-    vim.o.background = "light"
-
-    vim.g.zenwritten = {
-        lightness = "dim",
-    }
-
-    -- NOTE: zenbones.nvim is built on lush.nvim, so we need to do this "the lush way"
-    local function customise_zenwritten()
-        local lush = require("lush")
-        local base = require("zenwritten")
-
-        local specs = lush.parse(function()
-            return {
-                -- lua_ls does not understand the "lush syntax", so i disable the warnings here
-                ---@diagnostic disable-next-line: undefined-global
-                StatusLine({ base.StatusLine, bg = lush.hsl("#F6F6F6") }),
-            }
-        end)
-
-        lush.apply(lush.compile(specs))
-    end
-
-    vim.api.nvim_create_autocmd("ColorScheme", {
-        group = augroup,
-        desc = "Customises the zenwritten colourscheme",
-        pattern = "zenwritten",
-        callback = customise_zenwritten,
-    })
-
-    vim.cmd("colorscheme zenwritten")
 end
 
 -- Use LSP folding if the client supports it, otherwise use treesitter folding
@@ -314,9 +276,6 @@ end
 
 -- do this first
 config_mini()
-
-config_theme()
-require("my.statusline")
 
 config_fzf()
 config_git()
