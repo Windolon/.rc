@@ -1,6 +1,7 @@
 [general]
 import = [
-	"themes/Zenbones Light.toml"
+	"themes/kanagawa_lotus.toml"
+	# "themes/kanagawa_wave.toml"
 ]
 
 [window]
