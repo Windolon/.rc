@@ -94,12 +94,12 @@ vim.pack.add({
     "https://github.com/nvim-mini/mini.move",
 
     "https://github.com/ibhagwan/fzf-lua",
-    "https://github.com/tpope/vim-fugitive",
     "https://github.com/lewis6991/gitsigns.nvim",
     -- NOTE: cd to plugin dir and run `cargo build --release` after updating/installing
     "https://github.com/saghen/blink.cmp",
     "https://github.com/NMAC427/guess-indent.nvim",
     "https://github.com/rmagatti/auto-session",
+    "https://github.com/akinsho/toggleterm.nvim",
 
     "https://github.com/nvim-treesitter/nvim-treesitter",
     "https://github.com/neovim/nvim-lspconfig",
@@ -220,6 +220,21 @@ local function config_fzf()
     vim.keymap.set("n", "<leader>fh", FzfLua.help_tags, { desc = "Fuzzy find Neovim help tags" })
 end
 
+local function config_toggleterm()
+    -- stylua: ignore
+    local normal = vim.o.background == "light"
+        and { guifg = "#545464", guibg = "#f2ecbc" }
+        or  { guifg = "#dcd7ba", guibg = "#1f1f28" }
+    -- TODO: improve terminal colours (statuslines, etc.)
+    require("toggleterm").setup({
+        open_mapping = [[<C-ß>]],
+        highlights = {
+            Normal = normal,
+        },
+        shade_terminals = false,
+    })
+end
+
 local function config_treesitter()
     -- i dont mind my lamb chops well done.
     require("nvim-treesitter").install({ "all" })
@@ -305,6 +320,7 @@ require("auto-session").setup()
 vim.keymap.set("n", "<leader>fo", "<Cmd>AutoSession search<CR>", { desc = "Fuzzy find Neovim sessions" })
 
 require("guess-indent").setup({})
+config_toggleterm()
 
 config_treesitter()
 config_lsp()
