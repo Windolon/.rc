@@ -53,6 +53,14 @@ vim.keymap.set("n", "ö", "[", { remap = true })
 vim.keymap.set("n", "ä", "]", { remap = true })
 
 vim.keymap.set("n", "<leader>nr", "<Cmd>restart<CR>", { desc = ":restart" })
+vim.keymap.set("n", "<leader>st", function()
+    vim.cmd([[
+        new
+        te
+        startinsert
+    ]])
+    vim.api.nvim_win_set_height(0, 15)
+end, { desc = "Open and focus into a short horizontal terminal window" })
 
 vim.keymap.set("n", "<Esc>", "<Cmd>noh<CR>", { desc = "Turn off highlighting until the next search" })
 
