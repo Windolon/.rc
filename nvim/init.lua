@@ -147,7 +147,6 @@ local function config_git()
                 if vim.wo.diff then
                     vim.cmd.normal({ "]h", bang = true })
                 else
-                    ---@diagnostic disable-next-line: param-type-mismatch
                     gitsigns.nav_hunk("next")
                 end
             end)
@@ -156,7 +155,6 @@ local function config_git()
                 if vim.wo.diff then
                     vim.cmd.normal({ "[h", bang = true })
                 else
-                    ---@diagnostic disable-next-line: param-type-mismatch
                     gitsigns.nav_hunk("prev")
                 end
             end)
@@ -185,12 +183,10 @@ local function config_git()
             map("n", "<leader>hd", gitsigns.diffthis)
 
             map("n", "<leader>hD", function()
-                ---@diagnostic disable-next-line: param-type-mismatch
                 gitsigns.diffthis("~")
             end)
 
             map("n", "<leader>hQ", function()
-                ---@diagnostic disable-next-line: param-type-mismatch
                 gitsigns.setqflist("all")
             end)
             map("n", "<leader>hq", gitsigns.setqflist)
