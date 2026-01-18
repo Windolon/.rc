@@ -22,6 +22,7 @@ vim.o.shiftwidth = 0
 vim.o.pumheight = 10
 vim.o.cursorline = true
 vim.o.cursorlineopt = "number"
+vim.o.list = true
 vim.o.background = "light"
 
 vim.o.number = true
