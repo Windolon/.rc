@@ -91,7 +91,6 @@ vim.keymap.set({ "n", "x" }, "<Up>", "v:count == 0 ? 'gk' : 'k'", { desc = "Up",
 vim.pack.add({
     "https://github.com/nvim-mini/mini.icons",
     "https://github.com/nvim-mini/mini.files",
-    "https://github.com/nvim-mini/mini.move",
 
     "https://github.com/ibhagwan/fzf-lua",
     "https://github.com/lewis6991/gitsigns.nvim",
@@ -112,8 +111,6 @@ local function config_mini()
 
     require("mini.files").setup()
     vim.keymap.set("n", "<leader>e", MiniFiles.open, { desc = "Open mini.files explorer" })
-
-    require("mini.move").setup()
 end
 
 -- Use LSP folding if the client supports it, otherwise use treesitter folding
