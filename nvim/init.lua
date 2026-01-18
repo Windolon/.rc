@@ -1,5 +1,7 @@
 -- unapologetically in justinmk's style.
 
+local augroup = vim.api.nvim_create_augroup("my.config", {})
+
 -- ================================
 -- == General settings / options ==
 -- ================================
@@ -30,9 +32,14 @@ vim.o.splitbelow = true
 vim.o.splitright = true
 vim.o.confirm = true
 vim.o.mouse = "a"
-vim.schedule(function()
-    vim.o.clipboard = "unnamedplus"
-end)
+-- taken from example_init.lua
+vim.api.nvim_create_autocmd("UIEnter", {
+    group = augroup,
+    desc = "Syncs clipboard between OS and Neovim",
+    callback = function()
+        vim.o.clipboard = "unnamedplus"
+    end,
+})
 vim.o.undofile = true
 vim.o.ignorecase = true
 vim.o.smartcase = true
@@ -97,8 +104,6 @@ vim.pack.add({
     "https://github.com/neovim/nvim-lspconfig",
     "https://github.com/stevearc/conform.nvim",
 })
-
-local augroup = vim.api.nvim_create_augroup("my.config", {})
 
 local function config_mini()
     require("mini.icons").setup()
