@@ -17,8 +17,6 @@ vim.g.did_install_default_menus = 1 -- this looks like its mainly designed for t
 vim.o.breakindent = true
 vim.o.signcolumn = "yes"
 vim.o.winborder = "rounded"
-vim.o.tabstop = 4
-vim.o.shiftwidth = 0
 vim.o.pumheight = 10
 vim.o.cursorline = true
 vim.o.cursorlineopt = "number"
@@ -46,7 +44,14 @@ vim.o.ignorecase = true
 vim.o.smartcase = true
 vim.o.updatetime = 250
 vim.opt.spelllang = { "en", "de" } -- :h spell
+
+-- NOTE: guess-indent.nvim appears to control 'tabstop' and 'expandtab'
+-- on a per-buffer basis (plugin mimics `detect_indentation` of https://www.sublimetext.com/docs/indentation.html)
+-- We still set these two here for an overridable global default
+vim.o.tabstop = 4
 vim.o.expandtab = true
+vim.o.shiftwidth = 0
+vim.o.smartindent = true
 
 -- ===================
 -- == Basic keymaps ==
