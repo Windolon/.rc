@@ -108,14 +108,6 @@ vim.pack.add({
     "https://github.com/stevearc/conform.nvim",
 })
 
-local function config_mini()
-    require("mini.icons").setup()
-    MiniIcons.mock_nvim_web_devicons()
-
-    require("mini.files").setup()
-    vim.keymap.set("n", "<leader>e", MiniFiles.open, { desc = "Open mini.files explorer" })
-end
-
 -- Use LSP folding if the client supports it, otherwise use treesitter folding
 -- Taken from :h vim.lsp.foldexpr()
 local function config_folding()
@@ -218,7 +210,7 @@ local function config_fzf()
     vim.keymap.set("n", "<leader>fh", FzfLua.help_tags, { desc = "Fuzzy find Neovim help tags" })
 end
 
-local function config_toggleterm()
+local function config_terminal()
     -- stylua: ignore
     local normal = vim.o.background == "light"
         and { guifg = "#545464", guibg = "#f2ecbc" }
@@ -310,7 +302,11 @@ local function config_diagnostics()
 end
 
 -- do this first
-config_mini()
+require("mini.icons").setup()
+MiniIcons.mock_nvim_web_devicons()
+
+require("mini.files").setup()
+vim.keymap.set("n", "<leader>e", MiniFiles.open, { desc = "Open mini.files explorer" })
 
 config_fzf()
 config_git()
@@ -320,7 +316,8 @@ require("auto-session").setup()
 vim.keymap.set("n", "<leader>fo", "<Cmd>AutoSession search<CR>", { desc = "Fuzzy find Neovim sessions" })
 
 require("guess-indent").setup({})
-config_toggleterm()
+
+config_terminal()
 
 config_treesitter()
 config_lsp()
