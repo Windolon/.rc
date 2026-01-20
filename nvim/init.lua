@@ -65,7 +65,7 @@ vim.g.maplocalleader = " "
 vim.keymap.set("n", "ö", "[", { remap = true })
 vim.keymap.set("n", "ä", "]", { remap = true })
 
-vim.keymap.set("n", "<leader>nr", "<Cmd>restart<CR>", { desc = ":restart" })
+vim.keymap.set("n", "§", "<Cmd>restart<CR>", { desc = ":restart" })
 
 vim.keymap.set("n", "<Esc>", "<Cmd>noh<CR>", { desc = "Turn off highlighting until the next search" })
 
