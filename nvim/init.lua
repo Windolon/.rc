@@ -95,8 +95,8 @@ vim.keymap.set({ "n", "x" }, "<Up>", "v:count == 0 ? 'gk' : 'k'", { desc = "Up",
 
 vim.pack.add({
     "https://github.com/nvim-mini/mini.icons",
-    "https://github.com/nvim-mini/mini.files",
 
+    "https://github.com/nvim-mini/mini.files",
     "https://github.com/ibhagwan/fzf-lua",
     "https://github.com/lewis6991/gitsigns.nvim",
     "https://github.com/NMAC427/guess-indent.nvim",
