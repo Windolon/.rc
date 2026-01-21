@@ -1,9 +1,5 @@
 {
   "plugins": {
-    "auto-session": {
-      "rev": "292492ab7af4bd8b9e37e28508bc8ce995722fd5",
-      "src": "https://github.com/rmagatti/auto-session"
-    },
     "conform.nvim": {
       "rev": "8314f4c9e205e7f30b62147069729f9a1227d8bf",
       "src": "https://github.com/stevearc/conform.nvim"
@@ -39,6 +35,18 @@
     "toggleterm.nvim": {
       "rev": "9a88eae817ef395952e08650b3283726786fb5fb",
       "src": "https://github.com/akinsho/toggleterm.nvim"
+    },
+    "vim-obsession": {
+      "rev": "ed9dfc7c2cc917ace8b24f4f9f80a91e05614b63",
+      "src": "https://github.com/tpope/vim-obsession"
+    },
+    "vim-repeat": {
+      "rev": "65846025c15494983dafe5e3b46c8f88ab2e9635",
+      "src": "https://github.com/tpope/vim-repeat"
+    },
+    "vim-surround": {
+      "rev": "3d188ed2113431cf8dac77be61b842acb64433d9",
+      "src": "https://github.com/tpope/vim-surround"
     }
   }
 }
