@@ -100,8 +100,8 @@ vim.pack.add({
     "https://github.com/ibhagwan/fzf-lua",
     "https://github.com/lewis6991/gitsigns.nvim",
     "https://github.com/NMAC427/guess-indent.nvim",
-    "https://github.com/rmagatti/auto-session",
     "https://github.com/akinsho/toggleterm.nvim",
+    "https://github.com/tpope/vim-obsession",
 
     "https://github.com/nvim-treesitter/nvim-treesitter",
     "https://github.com/neovim/nvim-lspconfig",
@@ -310,10 +310,6 @@ vim.keymap.set("n", "<leader>e", MiniFiles.open, { desc = "Open mini.files explo
 
 config_fzf()
 config_git()
-
-vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
-require("auto-session").setup()
-vim.keymap.set("n", "<leader>fo", "<Cmd>AutoSession search<CR>", { desc = "Fuzzy find Neovim sessions" })
 
 require("guess-indent").setup({})
 
