@@ -102,6 +102,8 @@ vim.pack.add({
     "https://github.com/NMAC427/guess-indent.nvim",
     "https://github.com/akinsho/toggleterm.nvim",
     "https://github.com/tpope/vim-obsession",
+    "https://github.com/tpope/vim-surround",
+    "https://github.com/tpope/vim-repeat",
 
     "https://github.com/nvim-treesitter/nvim-treesitter",
     "https://github.com/neovim/nvim-lspconfig",
