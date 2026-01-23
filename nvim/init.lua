@@ -275,12 +275,11 @@ local function config_cmp()
     })
 end
 
-local function config_format_on_write()
+local function config_formatters()
     require("conform").setup({
         formatters_by_ft = {
             lua = { "stylua" },
-            -- :checkhealth will complain if we are not in a venv, but its fine
-            python = { "black" },
+            python = { "black" }, -- :checkhealth will complain if we are not in a venv, but its fine
         },
         format_on_save = {
             lsp_format = "fallback",
@@ -321,5 +320,5 @@ config_treesitter()
 config_lsp()
 config_cmp()
 config_folding()
-config_format_on_write()
+config_formatters()
 config_diagnostics()
