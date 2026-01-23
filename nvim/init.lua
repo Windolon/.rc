@@ -21,7 +21,7 @@ vim.o.pumheight = 10
 vim.o.cursorline = true
 vim.o.cursorlineopt = "number"
 vim.o.list = true
-vim.o.background = "light"
+-- vim.o.background = "light"
 
 vim.o.number = true
 vim.o.relativenumber = true
@@ -66,8 +66,6 @@ vim.keymap.set("n", "ö", "[", { remap = true })
 vim.keymap.set("n", "ä", "]", { remap = true })
 
 vim.keymap.set("n", "§", "<Cmd>restart<CR>", { desc = ":restart" })
-
-vim.keymap.set("n", "<Esc>", "<Cmd>noh<CR>", { desc = "Turn off highlighting until the next search" })
 
 -- <C-Left> and <C-Right> are aliases for B and W originally (i dont use them)
 vim.keymap.set("n", "<C-Up>", "<Cmd>resize +2<CR>", { desc = "Increase window height" })
