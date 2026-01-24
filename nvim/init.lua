@@ -1,5 +1,8 @@
 -- unapologetically in justinmk's style.
 
+-- NOTE: nvim's default colour palette can be found at
+-- https://github.com/neovim/neovim/blob/master/src/nvim/highlight_group.c#L2938
+
 local augroup = vim.api.nvim_create_augroup("my.config", {})
 
 -- ================================
@@ -213,15 +216,20 @@ end
 
 local function config_terminal()
     -- stylua: ignore
-    local normal = vim.o.background == "light"
-        and { guifg = "#545464", guibg = "#f2ecbc" }
-        or  { guifg = "#dcd7ba", guibg = "#1f1f28" }
-    -- TODO: improve terminal colours (statuslines, etc.)
+    local highlights = vim.o.background == "light"
+        and {
+            Normal          = { guifg = "#545464", guibg = "#f2ecbc" }, -- kanagawa lotus
+            StatusLine      = { guifg = "#14161b", guibg = "#9b9ea4" }, -- NvimDarkGrey2, NvimLightGrey4
+            StatusLineNC    = { guifg = "#2c2e33", guibg = "#c4c6cd" }, -- NvimDarkGrey3, NvimLightGrey3
+        }
+        or {
+            Normal          = { guifg = "#dcd7ba", guibg = "#1f1f28" }, -- kanagawa wave
+            StatusLine      = { guifg = "#e0e2ea", guibg = "#4f5258" }, -- NvimLightGrey2, NvimDarkGrey4
+            StatusLineNC    = { guifg = "#c4c6cd", guibg = "#2c2e33" }, -- NvimLightGrey3, NvimDarkGrey3
+        }
     require("toggleterm").setup({
         open_mapping = [[<C-ß>]],
-        highlights = {
-            Normal = normal,
-        },
+        highlights = highlights,
         shade_terminals = false,
     })
 end
