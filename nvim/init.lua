@@ -9,6 +9,8 @@ local augroup = vim.api.nvim_create_augroup("my.config", {})
 -- == General settings / options ==
 -- ================================
 
+vim.o.background = "light"
+
 vim.g.loaded_node_provider = 0
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_python3_provider = 0
@@ -25,7 +27,6 @@ vim.o.cursorline = true
 vim.o.cursorlineopt = "number"
 vim.o.list = true
 vim.o.guicursor = "n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20,t:block-TermCursor"
-vim.o.background = "light"
 
 vim.o.number = true
 vim.o.relativenumber = true
