@@ -272,7 +272,7 @@ end
 
 -- Call this after config_lsp()
 local function config_cmp()
-    vim.o.completeopt = "menuone,popup,fuzzy,nosort"
+    vim.o.completeopt = "menuone,popup,fuzzy"
 
     vim.api.nvim_create_autocmd("LspAttach", {
         group = augroup,
