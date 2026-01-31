@@ -112,6 +112,8 @@ vim.pack.add({
     "https://github.com/nvim-treesitter/nvim-treesitter-context",
     "https://github.com/neovim/nvim-lspconfig",
     "https://github.com/stevearc/conform.nvim",
+
+    "https://github.com/nvim-mini/mini.misc",
 })
 
 -- Use LSP folding if the client supports it, otherwise use treesitter folding
@@ -324,6 +326,7 @@ config_git()
 require("guess-indent").setup({})
 
 config_terminal()
+require("mini.misc").setup_termbg_sync()
 
 config_treesitter()
 config_lsp()
