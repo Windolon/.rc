@@ -310,6 +310,7 @@ local function config_diagnostics()
             },
         },
         -- underline is true by default
+        virtual_text = true,
     })
 end
 
