@@ -1,9 +1,41 @@
 -- unapologetically in justinmk's style.
 
--- NOTE: nvim's default colour palette can be found at
--- https://github.com/neovim/neovim/blob/master/src/nvim/highlight_group.c#L2938
-
 local augroup = vim.api.nvim_create_augroup("my.config", {})
+
+-- https://github.com/neovim/neovim/blob/master/src/nvim/highlight_group.c#L2938
+-- stylua: ignore
+local colours = {
+    NvimDarkBlue        = "#004c73",
+    NvimDarkCyan        = "#007373",
+    NvimDarkGray1       = "#07080d",
+    NvimDarkGray2       = "#14161b",
+    NvimDarkGray3       = "#2c2e33",
+    NvimDarkGray4       = "#4f5258",
+    NvimDarkGreen       = "#005523",
+    NvimDarkGrey1       = "#07080d",
+    NvimDarkGrey2       = "#14161b",
+    NvimDarkGrey3       = "#2c2e33",
+    NvimDarkGrey4       = "#4f5258",
+    NvimDarkMagenta     = "#470045",
+    NvimDarkRed         = "#590008",
+    NvimDarkYellow      = "#6b5300",
+    NvimLightBlue       = "#a6dbff",
+    NvimLightCyan       = "#8cf8f7",
+    NvimLightGray1      = "#eef1f8",
+    NvimLightGray2      = "#e0e2ea",
+    NvimLightGray3      = "#c4c6cd",
+    NvimLightGray4      = "#9b9ea4",
+    NvimLightGreen      = "#b3f6c0",
+    NvimLightGrey1      = "#eef1f8",
+    NvimLightGrey2      = "#e0e2ea",
+    NvimLightGrey3      = "#c4c6cd",
+    NvimLightGrey4      = "#9b9ea4",
+    NvimLightMagenta    = "#ffcaff",
+    NvimLightRed        = "#ffc0b9",
+    NvimLightYellow     = "#fce094",
+}
+-- Lloyd's pharmacy.
+local colors = colours
 
 -- ================================
 -- == General settings / options ==
@@ -223,13 +255,13 @@ local function config_terminal()
     local highlights = vim.o.background == "light"
         and {
             Normal          = { guifg = "#545464", guibg = "#f2ecbc" }, -- kanagawa lotus
-            StatusLine      = { guifg = "#14161b", guibg = "#9b9ea4" }, -- NvimDarkGrey2, NvimLightGrey4
-            StatusLineNC    = { guifg = "#2c2e33", guibg = "#c4c6cd" }, -- NvimDarkGrey3, NvimLightGrey3
+            StatusLine      = { guifg = colours.NvimDarkGrey2, guibg = colours.NvimLightGrey4 },
+            StatusLineNC    = { guifg = colours.NvimDarkGrey3, guibg = colours.NvimLightGrey3 },
         }
         or {
             Normal          = { guifg = "#dcd7ba", guibg = "#1f1f28" }, -- kanagawa wave
-            StatusLine      = { guifg = "#e0e2ea", guibg = "#4f5258" }, -- NvimLightGrey2, NvimDarkGrey4
-            StatusLineNC    = { guifg = "#c4c6cd", guibg = "#2c2e33" }, -- NvimLightGrey3, NvimDarkGrey3
+            StatusLine      = { guifg = colours.NvimLightGrey2, guibg = colours.NvimDarkGrey4 },
+            StatusLineNC    = { guifg = colours.NvimLightGrey3, guibg = colours.NvimDarkGrey3 },
         }
     require("toggleterm").setup({
         open_mapping = [[<C-ß>]],
