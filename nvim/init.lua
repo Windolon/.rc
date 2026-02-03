@@ -139,6 +139,7 @@ vim.pack.add({
     "https://github.com/tpope/vim-obsession",
     "https://github.com/tpope/vim-surround",
     "https://github.com/tpope/vim-repeat",
+    "https://github.com/nanozuki/tabby.nvim",
 
     "https://github.com/nvim-treesitter/nvim-treesitter",
     "https://github.com/nvim-treesitter/nvim-treesitter-context",
@@ -270,6 +271,50 @@ local function config_terminal()
     })
 end
 
+-- https://github.com/nanozuki/tabby.nvim/discussions/135
+local function config_tabline()
+    -- stylua: ignore
+    local theme = vim.o.background == "light"
+        and {
+            current = { fg = colours.NvimDarkGrey2, bg = colours.NvimLightGrey1, style = "bold" },
+            not_current = { fg = colours.NvimDarkGrey4, bg = colours.NvimLightGrey1 },
+            fill = { bg = colours.NvimLightGrey1 },
+        }
+        or {
+            current = { fg = colours.NvimLightGrey2, bg = colours.NvimDarkGrey1, style = "bold" },
+            not_current = { fg = colours.NvimLightGrey4, bg = colours.NvimDarkGrey1 },
+            fill = { bg = colours.NvimDarkGrey1 },
+        }
+
+    require("tabby.tabline").set(function(line)
+        return {
+            line.tabs().foreach(function(tab)
+                local hl = tab.is_current() and theme.current or theme.not_current
+                return {
+                    line.sep(" ", hl, theme.fill),
+                    tab.number(),
+                    line.sep(" ", hl, theme.fill),
+                    tab.name(),
+                    line.sep(" ", hl, theme.fill),
+                    hl = hl,
+                }
+            end),
+            line.spacer(),
+            line.wins_in_tab(line.api.get_current_tab()).foreach(function(win)
+                local hl = win.is_current() and theme.current or theme.not_current
+
+                return {
+                    line.sep(" ", hl, theme.fill),
+                    win.buf_name(),
+                    line.sep(" ", hl, theme.fill),
+                    hl = hl,
+                }
+            end),
+            hl = theme.fill,
+        }
+    end)
+end
+
 local function config_treesitter()
     -- i dont mind my lamb chops well done.
     require("nvim-treesitter").install({ "all" })
@@ -360,6 +405,7 @@ require("guess-indent").setup({})
 
 config_terminal()
 require("mini.misc").setup_termbg_sync()
+config_tabline()
 
 config_treesitter()
 config_lsp()
