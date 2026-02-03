@@ -81,6 +81,7 @@ vim.o.ignorecase = true
 vim.o.smartcase = true
 vim.o.updatetime = 250
 vim.opt.spelllang = { "en", "de" } -- :h spell
+vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,terminal,globals"
 
 -- NOTE: guess-indent.nvim appears to control 'tabstop' and 'expandtab'
 -- on a per-buffer basis (plugin mimics `detect_indentation` of https://www.sublimetext.com/docs/indentation.html)
