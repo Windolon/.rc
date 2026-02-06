@@ -1,5 +1,7 @@
 -- unapologetically in justinmk's style.
 
+vim.o.background = "light"
+
 local augroup = vim.api.nvim_create_augroup("my.config", {})
 
 -- https://github.com/neovim/neovim/blob/master/src/nvim/highlight_group.c#L2938
@@ -40,8 +42,6 @@ local colors = colours
 -- ================================
 -- == General settings / options ==
 -- ================================
-
-vim.o.background = "light"
 
 vim.g.loaded_node_provider = 0
 vim.g.loaded_perl_provider = 0
