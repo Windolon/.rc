@@ -395,14 +395,6 @@ end
 
 local function config_diagnostics()
     vim.diagnostic.config({
-        signs = {
-            text = {
-                [vim.diagnostic.severity.ERROR] = "󰅚 ",
-                [vim.diagnostic.severity.WARN] = "󰀪 ",
-                [vim.diagnostic.severity.INFO] = "󰋽 ",
-                [vim.diagnostic.severity.HINT] = "󰌶 ",
-            },
-        },
         -- underline is true by default
         virtual_text = true,
     })
