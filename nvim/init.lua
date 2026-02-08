@@ -51,7 +51,7 @@ vim.g.loaded_ruby_provider = 0
 vim.g.loaded_netrwPlugin = 0 -- i have mini.files
 vim.g.did_install_default_menus = 1 -- this looks like its mainly designed for the mouse, :h menu.vim
 
-vim.o.breakindent = true
+vim.o.wrap = false
 vim.o.signcolumn = "yes"
 vim.o.winborder = "rounded"
 vim.o.pumheight = 10
