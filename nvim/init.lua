@@ -272,6 +272,22 @@ local function config_terminal()
     })
 end
 
+-- Overrides some default highlight groups
+local function config_colorscheme()
+    -- stylua: ignore
+    local highlights = vim.o.background == "light"
+        and {
+            StatusLine = { fg = colours.NvimDarkGrey2, bg = colours.NvimLightGrey1 },
+        }
+        or {
+            StatusLine = { fg = colours.NvimLightGrey2, bg = colours.NvimDarkGrey1 },
+        }
+
+    for name, val in pairs(highlights) do
+        vim.api.nvim_set_hl(0, name, val)
+    end
+end
+
 -- https://github.com/nanozuki/tabby.nvim/discussions/135
 local function config_tabline()
     -- stylua: ignore
@@ -395,6 +411,8 @@ end
 -- do this first
 require("mini.icons").setup()
 MiniIcons.mock_nvim_web_devicons()
+
+config_colorscheme()
 
 require("mini.files").setup()
 vim.keymap.set("n", "<leader>e", MiniFiles.open, { desc = "Open mini.files explorer" })
