@@ -40,6 +40,10 @@
       "rev": "64dd4cf3f6fd0ab17622c5ce15c91fc539c3f24a",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter-context"
     },
+    "rustaceanvim": {
+      "rev": "bb57d9a9c3f547504e38df1fc17dbcc7065a23f3",
+      "src": "https://github.com/mrcjkb/rustaceanvim"
+    },
     "tabby.nvim": {
       "rev": "3c130e1fcb598ce39a9c292847e32d7c3987cf11",
       "src": "https://github.com/nanozuki/tabby.nvim"

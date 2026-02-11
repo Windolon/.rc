@@ -146,6 +146,7 @@ vim.pack.add({
     "https://github.com/nvim-treesitter/nvim-treesitter-context",
     "https://github.com/neovim/nvim-lspconfig",
     "https://github.com/stevearc/conform.nvim",
+    "https://github.com/mrcjkb/rustaceanvim",
 
     "https://github.com/nvim-mini/mini.misc",
 })
@@ -345,26 +346,39 @@ local function config_treesitter()
     })
 end
 
+-- This setup does not include rust-analyzer, see `config_rust()`
 local function config_lsp()
     vim.lsp.inlay_hint.enable(true)
-
-    vim.lsp.config("rust_analyzer", {
-        settings = {
-            ["rust-analyzer"] = {
-                inlayHints = {
-                    -- i agree with you maria
-                    chainingHints = { enable = false },
-                },
-            },
-        },
-    })
 
     vim.lsp.enable({
         -- cargo install emmylua_ls
         "emmylua_ls",
-        -- rustup component add rust-analyzer
-        "rust_analyzer",
     })
+end
+
+-- rustup component add rust-analyzer
+local function config_rust()
+    vim.g.rustaceanvim = {
+        server = {
+            on_attach = function(client, bufnr)
+                vim.keymap.set("n", "<leader>ra", function()
+                    vim.cmd.RustLsp("codeAction")
+                end, { silent = true, buffer = bufnr })
+
+                vim.keymap.set("n", "K", function()
+                    vim.cmd.RustLsp({ "hover", "actions" })
+                end, { silent = true, buffer = bufnr })
+            end,
+
+            default_settings = {
+                ["rust-analyzer"] = {
+                    inlayHints = {
+                        chainingHints = { enable = false },
+                    },
+                },
+            },
+        },
+    }
 end
 
 -- Call this after config_lsp()
@@ -420,6 +434,7 @@ config_tabline()
 
 config_treesitter()
 config_lsp()
+config_rust()
 config_cmp()
 config_folding()
 config_formatters()
