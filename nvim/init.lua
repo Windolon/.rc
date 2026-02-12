@@ -258,12 +258,12 @@ local function config_terminal()
     local highlights = vim.o.background == "light"
         and {
             Normal          = { guifg = "#545464", guibg = "#f2ecbc" }, -- kanagawa lotus
-            StatusLine      = { guifg = colours.NvimDarkGrey2, guibg = colours.NvimLightGrey4 },
+            StatusLine      = { guifg = colours.NvimDarkGrey2, guibg = colours.NvimLightGrey1 },
             StatusLineNC    = { guifg = colours.NvimDarkGrey3, guibg = colours.NvimLightGrey3 },
         }
         or {
             Normal          = { guifg = "#dcd7ba", guibg = "#1f1f28" }, -- kanagawa wave
-            StatusLine      = { guifg = colours.NvimLightGrey2, guibg = colours.NvimDarkGrey4 },
+            StatusLine      = { guifg = colours.NvimLightGrey2, guibg = colours.NvimDarkGrey1 },
             StatusLineNC    = { guifg = colours.NvimLightGrey3, guibg = colours.NvimDarkGrey3 },
         }
     require("toggleterm").setup({
