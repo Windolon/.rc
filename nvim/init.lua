@@ -115,6 +115,10 @@ vim.keymap.set("n", "<C-Right>", "<Cmd>vertical resize +2<CR>", { desc = "Increa
 -- i:<C-c> by default maps to quitting insert mode w/o checking for abbr. (<Esc> behaviour)
 vim.keymap.set({ "n", "i" }, "<C-c>", vim.snippet.stop, { desc = "Stop current snippet" })
 
+-- <Tab> by default maps to <C-I>
+-- i remap it here to provide a synced experience with neogit
+vim.keymap.set("n", "<Tab>", "za", { desc = "Toggle fold" })
+
 -- default keymaps with improved behaviour
 vim.keymap.set("n", "n", "nzzzv", { desc = "Next search result (centered)" })
 vim.keymap.set("n", "N", "Nzzzv", { desc = "Previous search result (centered)" })
@@ -141,6 +145,10 @@ vim.pack.add({
     "https://github.com/tpope/vim-surround",
     "https://github.com/tpope/vim-repeat",
     "https://github.com/nanozuki/tabby.nvim",
+
+    "https://github.com/sindrets/diffview.nvim",
+    "https://github.com/nvim-lua/plenary.nvim",
+    "https://github.com/NeogitOrg/neogit",
 
     "https://github.com/nvim-treesitter/nvim-treesitter",
     "https://github.com/nvim-treesitter/nvim-treesitter-context",
@@ -240,6 +248,7 @@ local function config_git()
             map({ "o", "x" }, "ih", gitsigns.select_hunk)
         end,
     })
+    vim.keymap.set("n", "<leader>gg", "<Cmd>Neogit<CR>", { desc = "Show Neogit UI" })
 end
 
 local function config_fzf()
