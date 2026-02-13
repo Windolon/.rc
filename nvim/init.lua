@@ -134,11 +134,13 @@ vim.keymap.set({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", ex
 vim.keymap.set({ "n", "x" }, "<Up>", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true, silent = true })
 
 vim.pack.add({
+    -- top level dependencies
     "https://github.com/nvim-mini/mini.icons",
+    "https://github.com/nvim-lua/plenary.nvim",
 
+    -- core editor behaviour
     "https://github.com/nvim-mini/mini.files",
     "https://github.com/ibhagwan/fzf-lua",
-    "https://github.com/lewis6991/gitsigns.nvim",
     "https://github.com/NMAC427/guess-indent.nvim",
     "https://github.com/akinsho/toggleterm.nvim",
     "https://github.com/tpope/vim-obsession",
@@ -146,16 +148,19 @@ vim.pack.add({
     "https://github.com/tpope/vim-repeat",
     "https://github.com/nanozuki/tabby.nvim",
 
+    -- git
+    "https://github.com/lewis6991/gitsigns.nvim",
     "https://github.com/sindrets/diffview.nvim",
-    "https://github.com/nvim-lua/plenary.nvim",
     "https://github.com/NeogitOrg/neogit",
 
+    -- languages support
     "https://github.com/nvim-treesitter/nvim-treesitter",
     "https://github.com/nvim-treesitter/nvim-treesitter-context",
     "https://github.com/neovim/nvim-lspconfig",
     "https://github.com/stevearc/conform.nvim",
     "https://github.com/mrcjkb/rustaceanvim",
 
+    -- misc
     "https://github.com/nvim-mini/mini.misc",
 })
 
