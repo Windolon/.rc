@@ -146,6 +146,8 @@ vim.pack.add({
     "https://github.com/tpope/vim-obsession",
     "https://github.com/tpope/vim-surround",
     "https://github.com/tpope/vim-repeat",
+
+    -- appearance
     "https://github.com/nanozuki/tabby.nvim",
 
     -- git
