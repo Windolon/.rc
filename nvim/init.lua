@@ -333,17 +333,6 @@ local function config_tabline()
                     hl = hl,
                 }
             end),
-            line.spacer(),
-            line.wins_in_tab(line.api.get_current_tab()).foreach(function(win)
-                local hl = win.is_current() and theme.current or theme.not_current
-
-                return {
-                    line.sep(" ", hl, theme.fill),
-                    win.buf_name(),
-                    line.sep(" ", hl, theme.fill),
-                    hl = hl,
-                }
-            end),
             hl = theme.fill,
         }
     end)
