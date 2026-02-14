@@ -59,7 +59,6 @@ vim.o.cursorline = true
 vim.o.cursorlineopt = "number"
 vim.o.list = true
 vim.o.guicursor = "n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20,t:block-TermCursor"
-vim.o.statusline = " " .. vim.o.statusline .. " "
 
 vim.o.number = true
 vim.o.relativenumber = true
