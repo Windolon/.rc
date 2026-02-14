@@ -1,0 +1,5 @@
+agriffis/neovim-nightly
+che/nerd-fonts
+observeroftime/betterdiscordctl
+peterwu/iosevka
+yorickpeterse/stylua
