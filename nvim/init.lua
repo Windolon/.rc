@@ -1,74 +1,55 @@
--- unapologetically in justinmk's style.
-
-vim.o.background = "light"
-
 local augroup = vim.api.nvim_create_augroup("my.config", {})
 
--- https://github.com/neovim/neovim/blob/master/src/nvim/highlight_group.c#L2938
--- stylua: ignore
-local colours = {
-    NvimDarkBlue        = "#004c73",
-    NvimDarkCyan        = "#007373",
-    NvimDarkGray1       = "#07080d",
-    NvimDarkGray2       = "#14161b",
-    NvimDarkGray3       = "#2c2e33",
-    NvimDarkGray4       = "#4f5258",
-    NvimDarkGreen       = "#005523",
-    NvimDarkGrey1       = "#07080d",
-    NvimDarkGrey2       = "#14161b",
-    NvimDarkGrey3       = "#2c2e33",
-    NvimDarkGrey4       = "#4f5258",
-    NvimDarkMagenta     = "#470045",
-    NvimDarkRed         = "#590008",
-    NvimDarkYellow      = "#6b5300",
-    NvimLightBlue       = "#a6dbff",
-    NvimLightCyan       = "#8cf8f7",
-    NvimLightGray1      = "#eef1f8",
-    NvimLightGray2      = "#e0e2ea",
-    NvimLightGray3      = "#c4c6cd",
-    NvimLightGray4      = "#9b9ea4",
-    NvimLightGreen      = "#b3f6c0",
-    NvimLightGrey1      = "#eef1f8",
-    NvimLightGrey2      = "#e0e2ea",
-    NvimLightGrey3      = "#c4c6cd",
-    NvimLightGrey4      = "#9b9ea4",
-    NvimLightMagenta    = "#ffcaff",
-    NvimLightRed        = "#ffc0b9",
-    NvimLightYellow     = "#fce094",
-}
--- Lloyd's pharmacy.
-local colors = colours
-
--- ================================
--- == General settings / options ==
--- ================================
-
+-- https://www.reddit.com/r/neovim/comments/1e9j6c0/are_providers_really_necessary/
 vim.g.loaded_node_provider = 0
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_python3_provider = 0
 vim.g.loaded_ruby_provider = 0
 
-vim.g.loaded_netrwPlugin = 0 -- i have mini.files
-vim.g.did_install_default_menus = 1 -- this looks like its mainly designed for the mouse, :h menu.vim
+-- :h 'optionname' describes in detail what the option does
+-- Here I just provide "why" I set the option
 
+-- Stops wrapping from messing up file layout
+-- Also avoids unintuitive j / k navigation issues when a line is wrapped
 vim.o.wrap = false
+-- Makes window layout consistent regardless of gitsigns' presence
 vim.o.signcolumn = "yes"
+-- Easily distinguishes content between floating windows and the background
 vim.o.winborder = "rounded"
-vim.o.pumheight = 10
-vim.o.cursorline = true
-vim.o.cursorlineopt = "number"
+-- Adds helper symbols to tabs and trailing spaces so they don't go unnoticed
 vim.o.list = true
+-- Stops cursor from blinking in terminal mode
 vim.o.guicursor = "n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20,t:block-TermCursor"
+-- Aesthetics
+vim.o.laststatus = 3
+-- Persistent undo history
+vim.o.undofile = true
+-- Some plugins benefit from a lower updatetime for better perceptual performance
+-- I haven't encountered any lags or glitches with this set at 250
+-- Modern hardware should be able to handle this no problem
+vim.o.updatetime = 250
+-- tabby.nvim needs `globals` to be in `sessionoptions` to save tab names
+vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,terminal,globals"
+-- guess-indent.nvim appears to control 'tabstop' and 'expandtab' on a per-buffer basis
+-- (plugin mimics `detect_indentation` of https://www.sublimetext.com/docs/indentation.html)
+-- We still set these two here for an overridable global default
+vim.o.tabstop = 4
+vim.o.expandtab = true
+vim.o.shiftwidth = 0
+vim.o.smartindent = true
 
+-- Just habits and ergonomics that I got used to
 vim.o.number = true
 vim.o.relativenumber = true
+vim.o.cursorline = true
+vim.o.cursorlineopt = "number"
 vim.o.scrolloff = 10
-vim.o.sidescrolloff = 10
 vim.o.splitbelow = true
 vim.o.splitright = true
 vim.o.confirm = true
-vim.o.mouse = "a"
--- taken from example_init.lua
+vim.o.ignorecase = true
+vim.o.smartcase = true
+vim.opt.spelllang = { "en", "de" } -- :h spell
 vim.api.nvim_create_autocmd("UIEnter", {
     group = augroup,
     desc = "Syncs clipboard between OS and Neovim",
@@ -76,26 +57,8 @@ vim.api.nvim_create_autocmd("UIEnter", {
         vim.o.clipboard = "unnamedplus"
     end,
 })
-vim.o.undofile = true
-vim.o.ignorecase = true
-vim.o.smartcase = true
-vim.o.updatetime = 250
-vim.opt.spelllang = { "en", "de" } -- :h spell
-vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,terminal,globals"
 
--- NOTE: guess-indent.nvim appears to control 'tabstop' and 'expandtab'
--- on a per-buffer basis (plugin mimics `detect_indentation` of https://www.sublimetext.com/docs/indentation.html)
--- We still set these two here for an overridable global default
-vim.o.tabstop = 4
-vim.o.expandtab = true
-vim.o.shiftwidth = 0
-vim.o.smartindent = true
-
--- ===================
--- == Basic keymaps ==
--- ===================
-
--- see default binds with :h index
+-- :h index lists default keybinds
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
@@ -103,19 +66,14 @@ vim.g.maplocalleader = " "
 vim.keymap.set("n", "ö", "[", { remap = true })
 vim.keymap.set("n", "ä", "]", { remap = true })
 
-vim.keymap.set("n", "§", "<Cmd>restart<CR>", { desc = ":restart" })
-
--- <C-Left> and <C-Right> are aliases for B and W originally (i dont use them)
 vim.keymap.set("n", "<C-Up>", "<Cmd>resize +2<CR>", { desc = "Increase window height" })
 vim.keymap.set("n", "<C-Down>", "<Cmd>resize -2<CR>", { desc = "Decrease window height" })
 vim.keymap.set("n", "<C-Left>", "<Cmd>vertical resize -2<CR>", { desc = "Decrease window width" })
 vim.keymap.set("n", "<C-Right>", "<Cmd>vertical resize +2<CR>", { desc = "Increase window width" })
 
--- n:<C-c> by default maps to interrupting current command (<Esc> behaviour)
--- i:<C-c> by default maps to quitting insert mode w/o checking for abbr. (<Esc> behaviour)
 vim.keymap.set({ "n", "i" }, "<C-c>", vim.snippet.stop, { desc = "Stop current snippet" })
 
--- default keymaps with improved behaviour
+-- Default keybinds with improved behaviour
 vim.keymap.set("n", "n", "nzzzv", { desc = "Next search result (centered)" })
 vim.keymap.set("n", "N", "Nzzzv", { desc = "Previous search result (centered)" })
 vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Half page down (centered)" })
@@ -123,18 +81,17 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Half page up (centered)" })
 vim.keymap.set("n", "J", "mzJ`z", { desc = "Join lines and keep cursor position" })
 vim.keymap.set("v", "<", "<gv", { desc = "Indent left and reselect" })
 vim.keymap.set("v", ">", ">gv", { desc = "Indent right and reselect" })
--- taken from lazyvim
-vim.keymap.set({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })
-vim.keymap.set({ "n", "x" }, "<Down>", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })
-vim.keymap.set({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true, silent = true })
-vim.keymap.set({ "n", "x" }, "<Up>", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true, silent = true })
 
 vim.pack.add({
-    -- top level dependencies
+    -- Top level dependencies
     "https://github.com/nvim-mini/mini.icons",
-    "https://github.com/nvim-lua/plenary.nvim",
 
-    -- core editor behaviour
+    -- Appearance
+    "https://github.com/rktjmp/lush.nvim",
+    "https://github.com/zenbones-theme/zenbones.nvim",
+    "https://github.com/nanozuki/tabby.nvim",
+
+    -- Core editor behaviour
     "https://github.com/nvim-mini/mini.files",
     "https://github.com/ibhagwan/fzf-lua",
     "https://github.com/NMAC427/guess-indent.nvim",
@@ -143,47 +100,87 @@ vim.pack.add({
     "https://github.com/tpope/vim-surround",
     "https://github.com/tpope/vim-repeat",
 
-    -- appearance
-    "https://github.com/nanozuki/tabby.nvim",
-
-    -- git
+    -- Git
     "https://github.com/lewis6991/gitsigns.nvim",
-    "https://github.com/sindrets/diffview.nvim",
+    "https://github.com/dlyongemallo/diffview-plus.nvim",
     "https://github.com/NeogitOrg/neogit",
 
-    -- languages support
+    -- General languages
     "https://github.com/nvim-treesitter/nvim-treesitter",
     "https://github.com/nvim-treesitter/nvim-treesitter-context",
     "https://github.com/neovim/nvim-lspconfig",
     "https://github.com/stevearc/conform.nvim",
-    "https://github.com/mrcjkb/rustaceanvim",
 
-    -- misc
-    "https://github.com/nvim-mini/mini.misc",
+    -- Specific languages
+    "https://github.com/mrcjkb/rustaceanvim",
 })
 
--- Use LSP folding if the client supports it, otherwise use treesitter folding
--- Taken from :h vim.lsp.foldexpr()
-local function config_folding()
-    vim.o.foldmethod = "expr"
-    vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-    vim.o.foldlevel = 99 -- dont fold anything on buffer open
-    vim.api.nvim_create_autocmd("LspAttach", {
-        group = augroup,
-        desc = "Configures LSP folding if the client supports it",
-        callback = function(args)
-            local client = vim.lsp.get_client_by_id(args.data.client_id)
-            -- this is an LspAttach autocmd, `client` is guaranteed to exist
-            ---@diagnostic disable-next-line: need-check-nil
-            if client:supports_method("textDocument/foldingRange") then
-                local win = vim.api.nvim_get_current_win()
-                vim.wo[win][0].foldexpr = "v:lua.vim.lsp.foldexpr()"
-            end
-        end,
+local function setup_zenbones()
+    vim.cmd("colorscheme zenwritten")
+
+    local lush = require("lush")
+    local base = require("zenwritten")
+
+    local specs = lush.parse(function()
+        return {
+            StatusLine({ base.Normal }),
+        }
+    end)
+
+    lush.apply(lush.compile(specs))
+end
+
+-- https://github.com/nanozuki/tabby.nvim/discussions/135
+local function setup_tabby()
+    local base = require("zenwritten")
+    local theme = {
+        current = { fg = base.Normal.fg.hex, bg = base.Normal.bg.hex, style = "bold" },
+        not_current = { fg = base.LineNr.fg.hex, bg = base.Normal.bg.hex },
+        fill = { bg = base.Normal.bg.hex },
+    }
+
+    require("tabby.tabline").set(function(line)
+        return {
+            line.tabs().foreach(function(tab)
+                local hl = tab.is_current() and theme.current or theme.not_current
+                return {
+                    line.sep(" ", hl, theme.fill),
+                    tab.number(),
+                    line.sep(" ", hl, theme.fill),
+                    tab.name(),
+                    line.sep(" ", hl, theme.fill),
+                    hl = hl,
+                }
+            end),
+            hl = theme.fill,
+        }
+    end)
+end
+
+local function setup_minifiles()
+    require("mini.files").setup()
+    vim.keymap.set("n", "<leader>e", MiniFiles.open, { desc = "Open mini.files explorer" })
+end
+
+local function setup_fzf()
+    require("fzf-lua").setup({
+        fzf_colors = true,
+    })
+    vim.keymap.set("n", "<leader>fb", FzfLua.buffers, { desc = "Fuzzy find open buffers" })
+    vim.keymap.set("n", "<leader>ff", FzfLua.files, { desc = "Fuzzy find files" })
+    vim.keymap.set("n", "<leader>fg", FzfLua.live_grep, { desc = "Live grep current project" })
+    vim.keymap.set("n", "<leader>fs", FzfLua.lsp_document_symbols, { desc = "Fuzzy find document symbols" })
+    vim.keymap.set("n", "<leader>fh", FzfLua.help_tags, { desc = "Fuzzy find Neovim help tags" })
+end
+
+local function setup_toggleterm()
+    require("toggleterm").setup({
+        open_mapping = "<C-ß>",
+        shade_terminals = false,
     })
 end
 
-local function config_git()
+local function setup_gitsigns()
     require("gitsigns").setup({
         on_attach = function(bufnr)
             local gitsigns = require("gitsigns")
@@ -195,17 +192,17 @@ local function config_git()
             end
 
             -- Navigation
-            map("n", "]h", function()
+            map("n", "]c", function()
                 if vim.wo.diff then
-                    vim.cmd.normal({ "]h", bang = true })
+                    vim.cmd.normal({ "]c", bang = true })
                 else
                     gitsigns.nav_hunk("next")
                 end
             end)
 
-            map("n", "[h", function()
+            map("n", "[c", function()
                 if vim.wo.diff then
-                    vim.cmd.normal({ "[h", bang = true })
+                    vim.cmd.normal({ "[c", bang = true })
                 else
                     gitsigns.nav_hunk("prev")
                 end
@@ -251,104 +248,57 @@ local function config_git()
             map({ "o", "x" }, "ih", gitsigns.select_hunk)
         end,
     })
-    vim.keymap.set("n", "<leader>gg", "<Cmd>Neogit<CR>", { desc = "Show Neogit UI" })
 end
 
-local function config_fzf()
-    require("fzf-lua").setup({
-        fzf_colors = true,
-    })
-    vim.keymap.set("n", "<leader>fb", FzfLua.buffers, { desc = "Fuzzy find open buffers" })
-    vim.keymap.set("n", "<leader>ff", FzfLua.files, { desc = "Fuzzy find files" })
-    vim.keymap.set("n", "<leader>fg", FzfLua.live_grep, { desc = "Live grep current project" })
-    vim.keymap.set("n", "<leader>fs", FzfLua.lsp_document_symbols, { desc = "Fuzzy find document symbols" })
-    vim.keymap.set("n", "<leader>fh", FzfLua.help_tags, { desc = "Fuzzy find Neovim help tags" })
-end
+local function setup_treesitter()
+    -- Usually, only this table should be modified e.g. adding / removing languages
+    local filetypes = {
+        "gitcommit",
+        "json",
+        "lua",
+        "rust",
+        "squirrel",
+        "toml",
+    }
 
-local function config_terminal()
-    -- stylua: ignore
-    local highlights = vim.o.background == "light"
-        and {
-            Normal          = { guifg = "#545464", guibg = "#f2ecbc" }, -- kanagawa lotus
-            StatusLine      = { guifg = colours.NvimDarkGrey2, guibg = colours.NvimLightGrey1 },
-            StatusLineNC    = { guifg = colours.NvimDarkGrey3, guibg = colours.NvimLightGrey3 },
-        }
-        or {
-            Normal          = { guifg = "#dcd7ba", guibg = "#1f1f28" }, -- kanagawa wave
-            StatusLine      = { guifg = colours.NvimLightGrey2, guibg = colours.NvimDarkGrey1 },
-            StatusLineNC    = { guifg = colours.NvimLightGrey3, guibg = colours.NvimDarkGrey3 },
-        }
-    require("toggleterm").setup({
-        open_mapping = [[<C-ß>]],
-        highlights = highlights,
-        shade_terminals = false,
-    })
-end
-
--- Overrides some default highlight groups
-local function config_colorscheme()
-    -- stylua: ignore
-    local highlights = vim.o.background == "light"
-        and {
-            StatusLine = { fg = colours.NvimDarkGrey2, bg = colours.NvimLightGrey1 },
-        }
-        or {
-            StatusLine = { fg = colours.NvimLightGrey2, bg = colours.NvimDarkGrey1 },
-        }
-
-    for name, val in pairs(highlights) do
-        vim.api.nvim_set_hl(0, name, val)
-    end
-end
-
--- https://github.com/nanozuki/tabby.nvim/discussions/135
-local function config_tabline()
-    -- stylua: ignore
-    local theme = vim.o.background == "light"
-        and {
-            current = { fg = colours.NvimDarkGrey2, bg = colours.NvimLightGrey1, style = "bold" },
-            not_current = { fg = colours.NvimDarkGrey4, bg = colours.NvimLightGrey1 },
-            fill = { bg = colours.NvimLightGrey1 },
-        }
-        or {
-            current = { fg = colours.NvimLightGrey2, bg = colours.NvimDarkGrey1, style = "bold" },
-            not_current = { fg = colours.NvimLightGrey4, bg = colours.NvimDarkGrey1 },
-            fill = { bg = colours.NvimDarkGrey1 },
-        }
-
-    require("tabby.tabline").set(function(line)
-        return {
-            line.tabs().foreach(function(tab)
-                local hl = tab.is_current() and theme.current or theme.not_current
-                return {
-                    line.sep(" ", hl, theme.fill),
-                    tab.number(),
-                    line.sep(" ", hl, theme.fill),
-                    tab.name(),
-                    line.sep(" ", hl, theme.fill),
-                    hl = hl,
-                }
-            end),
-            hl = theme.fill,
-        }
-    end)
-end
-
-local function config_treesitter()
-    -- i dont mind my lamb chops well done.
-    require("nvim-treesitter").install({ "all" })
+    require("nvim-treesitter").install(filetypes)
     vim.api.nvim_create_autocmd("FileType", {
         group = augroup,
-        desc = "Starts treesitter if the filetype is supported",
+        desc = "Starts treesitter for supported filetypes",
+        pattern = filetypes,
         callback = function()
-            -- there is still a chance that this will error so we wrap it in a pcall
-            pcall(vim.treesitter.start)
+            vim.treesitter.start()
+        end,
+    })
+    require("treesitter-context").setup({
+        max_lines = 5,
+    })
+end
+
+local function setup_folding()
+    -- Use LSP folding if the client supports it, otherwise use treesitter folding
+    -- Taken from :h vim.lsp.foldexpr()
+    vim.o.foldmethod = "expr"
+    vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+    -- Don't fold anything on buffer open
+    vim.o.foldlevel = 99
+    vim.api.nvim_create_autocmd("LspAttach", {
+        group = augroup,
+        desc = "Configures LSP folding if the client supports it",
+        callback = function(args)
+            local client = vim.lsp.get_client_by_id(args.data.client_id)
+            -- This is an LspAttach autocmd, `client` is guaranteed to exist
+            ---@diagnostic disable-next-line: need-check-nil
+            if client:supports_method("textDocument/foldingRange") then
+                local win = vim.api.nvim_get_current_win()
+                vim.wo[win][0].foldexpr = "v:lua.vim.lsp.foldexpr()"
+            end
         end,
     })
 end
 
--- This setup does not include rust-analyzer, see `config_rust()`
-local function config_lsp()
+-- This setup does not include rust-analyzer, see `setup_rustaceanvim()`
+local function setup_lsp()
     vim.lsp.inlay_hint.enable(true)
 
     vim.lsp.enable({
@@ -357,8 +307,7 @@ local function config_lsp()
     })
 end
 
--- rustup component add rust-analyzer
-local function config_rust()
+local function setup_rustaceanvim()
     vim.g.rustaceanvim = {
         server = {
             on_attach = function(client, bufnr)
@@ -382,10 +331,8 @@ local function config_rust()
     }
 end
 
--- Call this after config_lsp()
-local function config_cmp()
+local function setup_autocompletion()
     vim.o.completeopt = "menuone,popup,fuzzy"
-
     vim.api.nvim_create_autocmd("LspAttach", {
         group = augroup,
         desc = "Enables LSP completion",
@@ -395,11 +342,10 @@ local function config_cmp()
     })
 end
 
-local function config_formatters()
+local function setup_conform()
     require("conform").setup({
         formatters_by_ft = {
             lua = { "stylua" },
-            python = { "black" }, -- :checkhealth will complain if we are not in a venv, but its fine
         },
         format_on_save = {
             lsp_format = "fallback",
@@ -408,35 +354,19 @@ local function config_formatters()
     })
 end
 
-local function config_diagnostics()
-    vim.diagnostic.config({
-        -- underline is true by default
-        virtual_text = true,
-    })
-end
-
--- do this first
 require("mini.icons").setup()
-MiniIcons.mock_nvim_web_devicons()
-
-config_colorscheme()
-
-require("mini.files").setup()
-vim.keymap.set("n", "<leader>e", MiniFiles.open, { desc = "Open mini.files explorer" })
-
-config_fzf()
-config_git()
-
+setup_zenbones()
+setup_minifiles()
+setup_fzf()
+setup_gitsigns()
+vim.keymap.set("n", "<leader>gg", "<Cmd>Neogit<CR>", { desc = "Open Neogit UI" })
 require("guess-indent").setup({})
-
-config_terminal()
-require("mini.misc").setup_termbg_sync()
-config_tabline()
-
-config_treesitter()
-config_lsp()
-config_rust()
-config_cmp()
-config_folding()
-config_formatters()
-config_diagnostics()
+setup_toggleterm()
+setup_tabby()
+setup_treesitter()
+setup_lsp()
+setup_rustaceanvim()
+setup_autocompletion()
+setup_folding()
+setup_conform()
+vim.diagnostic.config({ virtual_text = true })
