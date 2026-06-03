@@ -1,16 +1,16 @@
 [general]
 import = [
-	"themes/kanagawa_lotus.toml"
-	# "themes/kanagawa_wave.toml"
+    "themes/zenwritten_light.toml"
+    # "themes/zenwritten_dark.toml"
 ]
 
 [window]
 # startup_mode = "Fullscreen"
-dimensions = { columns = 180, lines = 37 }
+dimensions = { columns = 157, lines = 37 }
 dynamic_padding = true
 
 [font]
-normal = { family = "Iosevka Term", style = "Regular" }
+normal = { family = "Lilex", style = "Regular" }
 # brewmaster: 17 | JAAM: 14
 size = 14
 
