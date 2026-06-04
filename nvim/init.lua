@@ -43,7 +43,6 @@ vim.o.number = true
 vim.o.relativenumber = true
 vim.o.cursorline = true
 vim.o.cursorlineopt = "number"
-vim.o.scrolloff = 10
 vim.o.splitbelow = true
 vim.o.splitright = true
 vim.o.confirm = true
