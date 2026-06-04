@@ -123,6 +123,7 @@ local function setup_zenbones()
 
     local specs = lush.parse(function()
         return {
+            ---@diagnostic disable-next-line: undefined-global
             StatusLine({ base.Normal }),
         }
     end)
@@ -159,6 +160,7 @@ end
 
 local function setup_minifiles()
     require("mini.files").setup()
+    ---@diagnostic disable-next-line: undefined-global
     vim.keymap.set("n", "<leader>e", MiniFiles.open, { desc = "Open mini.files explorer" })
 end
 
