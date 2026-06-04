@@ -94,7 +94,6 @@ vim.pack.add({
     "https://github.com/nvim-mini/mini.files",
     "https://github.com/ibhagwan/fzf-lua",
     "https://github.com/NMAC427/guess-indent.nvim",
-    "https://github.com/akinsho/toggleterm.nvim",
     "https://github.com/tpope/vim-obsession",
     "https://github.com/tpope/vim-surround",
     "https://github.com/tpope/vim-repeat",
@@ -172,13 +171,6 @@ local function setup_fzf()
     vim.keymap.set("n", "<leader>fg", FzfLua.live_grep, { desc = "Live grep current project" })
     vim.keymap.set("n", "<leader>fs", FzfLua.lsp_document_symbols, { desc = "Fuzzy find document symbols" })
     vim.keymap.set("n", "<leader>fh", FzfLua.help_tags, { desc = "Fuzzy find Neovim help tags" })
-end
-
-local function setup_toggleterm()
-    require("toggleterm").setup({
-        open_mapping = "<C-ß>",
-        shade_terminals = false,
-    })
 end
 
 local function setup_gitsigns()
@@ -362,7 +354,6 @@ setup_fzf()
 setup_gitsigns()
 vim.keymap.set("n", "<leader>gg", "<Cmd>Neogit<CR>", { desc = "Open Neogit UI" })
 require("guess-indent").setup({})
-setup_toggleterm()
 setup_tabby()
 setup_treesitter()
 setup_lsp()
