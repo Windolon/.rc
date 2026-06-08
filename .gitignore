@@ -1,7 +1,10 @@
 **/.DS_Store
 tmux/plugins
+Session.vim
+
 fish/completions
 fish/conf.d
-fish/functions
 fish/fish_variables
-Session.vim
+fish/functions/_pure*
+fish/functions/fish_*
+fish/functions/fisher.fish
