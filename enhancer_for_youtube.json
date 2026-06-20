@@ -1,5 +1,5 @@
 {
-  "version": "2.0.131",
+  "version": "2.0.133.1",
   "settings": {
     "blur": 0,
     "brightness": 100,
@@ -18,7 +18,7 @@
     "blockwebmformats": false,
     "boostvolume": false,
     "cinemamode": false,
-    "cinemamodewideplayer": true,
+    "cinemamodewideplayer": false,
     "controlbar": {
       "active": true,
       "autohide": false,
@@ -28,7 +28,6 @@
     "controls": [
       "loop",
       "volume-booster",
-      "cards-end-screens",
       "speed",
       "screenshot",
       "options"
@@ -58,6 +57,30 @@
     "executescript": false,
     "expanddescription": false,
     "filter": "none",
+    "griditemsperrow": {
+      "channel": {
+        "shorts": {
+          "apply": false,
+          "count": 5
+        },
+        "videos": {
+          "apply": false,
+          "count": 4
+        }
+      },
+      "posts": {
+        "apply": false,
+        "count": 4
+      },
+      "shorts": {
+        "apply": false,
+        "count": 8
+      },
+      "videos": {
+        "apply": false,
+        "count": 4
+      }
+    },
     "hidecardsendscreens": false,
     "hidechat": false,
     "hidecomments": false,
@@ -67,7 +90,6 @@
     "ignorepopupplayer": true,
     "localecode": "en_GB",
     "localedir": "ltr",
-    "message": false,
     "miniplayer": true,
     "miniplayerposition": "_bottom-right",
     "miniplayersize": "_400x225",
@@ -77,9 +99,9 @@
     "pausevideos": false,
     "qualityembeds": "large",
     "qualityembedsfullscreen": "hd1080",
-    "qualityplaylists": "hd2160",
+    "qualityplaylists": "hd1080",
     "qualityplaylistsfullscreen": "hd1080",
-    "qualityvideos": "hd2160",
+    "qualityvideos": "hd1080",
     "qualityvideosfullscreen": "hd1080",
     "reload": false,
     "reversemousewheeldirection": false,
@@ -87,7 +109,7 @@
     "selectqualityfullscreenoff": false,
     "selectqualityfullscreenon": false,
     "speed": 1,
-    "speedvariation": 0.1,
+    "speedvariation": 0.02,
     "stopvideos": false,
     "theatermode": true,
     "theme": "default-dark",
